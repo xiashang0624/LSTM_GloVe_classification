@@ -17,7 +17,7 @@ To use the pre-trained model, make sure you have the the following files in the 
 
 To use the pre-trained model in testing cases (test.py)
 ---
-To run the test.py model....
+In order to use the pretrained model to make predictions, simply type ```python test.py``` in the command line (terminal).  Then you will need to type the file name which contains the document information in the same format as the training dataset provided.  The prediction results will be saved in the txt file under the name **output.txt**.  An example of excecuting the test python file is shown below.
 
 ```
 C:\Users\xxx_machine\Desktop\LSTM_GloVe_classification>python test.py
