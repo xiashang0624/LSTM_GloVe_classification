@@ -15,6 +15,10 @@ To use the pre-trained model, make sure you have the the following files in the 
 
 **tokenizer.pickle** This file contains the embedding information and the tokenizer obtained during the  model training procss.
 
+To use the pre-trained model in testing cases (test.py)
+---
+To run the test.py model....
+
 
 If you want to re-train the model, make sure you download the following files/packages.
 ---
@@ -25,8 +29,12 @@ If you want to re-train the model, make sure you download the following files/pa
 
 **Accepted_answer_prediction_labels_train.txt** This is a given file from task 1 dataset in the class website.
 
-To use the pre-trained model in testing cases (test.py)
----
-To run 
+To re-train the model, type **python train.py**.  The entire training process may take up to 3 hours, depending on your computing power.
+
+Since 4-fold cross-validation is used, 4 different models will be trained and evaluated. A "training_result.txt" will be also generated once the training process is done.  Since this is a binary classification problem, the modeling results will be evaluated in the following three categories: recall (sensitivity, true positive rate), specivity (true negative rate), and accuracy.
+
+An example of the "training_result.txt" is shown as follows:
+
+
 
 
