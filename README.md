@@ -19,6 +19,20 @@ To use the pre-trained model in testing cases (test.py)
 ---
 To run the test.py model....
 
+```
+C:\Users\xxx_machine\Desktop\LSTM_GloVe_classification>python test.py
+importing libraries...
+C:\Users\Xia_Dell\Anaconda3\lib\site-packages\h5py\__init__.py:34: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+Type Test filename:sample.txt
+Test file has been found, loading pre-trained model...
+2018-11-27 15:35:00.700239: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2
+Pre-trained model has been loaded, loading pre-trained tokenizer...
+Embedding is done, predicting outputs...
+Write outputs to file...
+File was saved to output.txt.
+```
 
 If you want to re-train the model, make sure you download the following files/packages.
 ---
