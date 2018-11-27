@@ -35,6 +35,13 @@ Since 4-fold cross-validation is used, 4 different models will be trained and ev
 
 An example of the "training_result.txt" is shown as follows:
 
-
+```
+Model trained at Timestamp: 2018-11-27 12:37:49
+4-fold validation
+model 0: Recall=0.819 Selectivity=0.983 Accuracy=0.947.
+model 1: Recall=0.865 Selectivity=0.954 Accuracy=0.936.
+model 2: Recall=0.841 Selectivity=0.968 Accuracy=0.938.
+model 3: Recall=0.833 Selectivity=0.978 Accuracy=0.949.
+```
 
 
