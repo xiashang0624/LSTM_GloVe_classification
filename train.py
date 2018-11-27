@@ -22,7 +22,7 @@ df = pd.read_csv('Accepted_answer_prediction_data_train.txt', sep ='\t',
 label = pd.read_csv('Accepted_answer_prediction_labels_train.txt', sep ='\t',
                  header=None,names=['C_ID','label'])
 df = pd.merge(df, label, on=['C_ID'])
-embedding_file='Sample/glove.6B.100d.txt'
+embedding_file='glove.6B.100d.txt'
 
 df['length'] = [len(str(des).split()) for des in df['Description'].tolist()]
 
