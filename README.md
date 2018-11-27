@@ -59,3 +59,5 @@ model 2: Recall=0.841 Selectivity=0.968 Accuracy=0.938.
 model 3: Recall=0.833 Selectivity=0.978 Accuracy=0.949.
 ```
 In addition, the same training process is also available in the jupyter notebook **LSTM.ipynb**.
+
+Note that you can choose the model with the highest performance as the trained weight for testing. Simply change the file name (e.g., **model_2.h5**) of your favorate pre-trained model to **model.h5**.  The test.py will load the pre-trained weights under the name "model.h5".
