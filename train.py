@@ -16,7 +16,7 @@ from sklearn.utils import class_weight
 from keras import backend as K
 from datetime import datetime
 
-
+print ('Loading dataset...')
 df = pd.read_csv('Accepted_answer_prediction_data_train.txt', sep ='\t',
                  header=None,names=['C_ID','Description','U_ID','Type','Time'])
 label = pd.read_csv('Accepted_answer_prediction_labels_train.txt', sep ='\t',
@@ -29,6 +29,7 @@ df['length'] = [len(str(des).split()) for des in df['Description'].tolist()]
 emb_D = 100 # Dimension of the embedding.  Here we chose 100
 doc_len = 300 # we chose certain number of words used in the model. For documents with fewer words, zero padding will be used.
 
+print ('Tokenizing and Embedding...')
 Train_Doc = df["Description"].fillna("NA").values
 tokenizer = Tokenizer()
 tokenizer.fit_on_texts(list(Train_Doc))
@@ -60,9 +61,7 @@ for w, i in vocab.items():
 with open('tokenizer.pickle', 'wb') as handle:
     pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-class_weights = class_weight.compute_class_weight('balanced',
-                                                 np.unique(y_train),
-                                                 y_train)
+
 
 def sensitivity(y_true, y_pred):
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
@@ -74,6 +73,7 @@ def specificity(y_true, y_pred):
     possible_negatives = K.sum(K.round(K.clip(1-y_true, 0, 1)))
     return true_negatives / (possible_negatives + K.epsilon())
 
+print ('Prepare model...')
 a = Input(shape=(doc_len,))
 b = Embedding(vocab_len, emb_D, weights=[embed_Matrix])(a)
 b = Bidirectional(LSTM(100, return_sequences=True, dropout=0.2, recurrent_dropout=0.2))(b)
@@ -88,6 +88,8 @@ b = Dense(1, activation="sigmoid")(b)
 model = Model(inputs=a, outputs=b)
 model.compile(loss='binary_crossentropy', optimizer='Adam', metrics=[sensitivity, specificity, 'accuracy'])
 
+
+print ('Model training...')
 # 4-fold cross-validation
 folds = 4
 kfold = StratifiedKFold(n_splits=folds, shuffle=True)
@@ -95,7 +97,8 @@ iter_kfold = 0
 validation_result = []
 total_result = []
 for train, test in kfold.split(X_t, y):
-    model.fit(X_t[train], y[train], batch_size=32, epochs=10, validation_split=0.2,class_weight={0:class_weights[0],1:class_weights[1]});
+    class_weights = class_weight.compute_class_weight('balanced', np.unique(y[train]), y[train])
+    model.fit(X_t[train], y[train], batch_size=32, epochs=20, validation_split=0.2,class_weight={0:class_weights[0],1:class_weights[1]});
     validation_result.append(model.evaluate(X_t[test], y[test], verbose=0))
     total_result.append(model.evaluate(X_t, y, verbose=0))
     model_name = 'model_' + str(iter_kfold) + '.h5'
