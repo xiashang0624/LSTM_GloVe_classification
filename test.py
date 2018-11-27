@@ -1,11 +1,5 @@
 
-#add following lines in train:
-'''
-import pickle
-with open('tokenizer.pickle', 'wb') as handle:
-    pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
-model.save('model.h5')
-'''
+print ('importing libraries...')
 from keras import backend as K
 import pickle
 import numpy as np
@@ -25,21 +19,26 @@ def specificity(y_true, y_pred):
     return true_negatives / (possible_negatives + K.epsilon())
 
 
-test_file = input('Test filename:')
+test_file = input('Type Test filename:')
 if not os.path.isfile(test_file):
     print('file not exist')
     sys.exit(0)
 df = pd.read_csv(test_file, sep ='\t',
                  header=None,names=['C_ID','Description','U_ID','Type','Time'])
+print ('test file has been found, loading pre-trained model...')
 model = load_model('model.h5',custom_objects={'sensitivity': sensitivity,'specificity':specificity})
 
+print ('pre-trained model has been loaded, loading pre-trained tokenizer...')
 # loading
 with open('tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 Test_tokenize = tokenizer.texts_to_sequences(df['Description'].fillna("NA").values)
 X_t = pad_sequences(Test_tokenize, maxlen=300)
+print ('embedding is done, predicting outputs...')
 prediction = np.round(model.predict(X_t))
-np.savetxt('output.txt',prediction.astype(int))
+print ('Write outputs to file...')
+np.savetxt('output.txt',prediction.astype('int32'))
+print ('File was saved to output.txt...')
 # Accepted_answer_prediction_data_train.txt
 
