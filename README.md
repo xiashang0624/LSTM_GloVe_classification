@@ -5,7 +5,7 @@
 
 
 
-Here we build a LSTM classification model with Glovec embedding to predict whether a Stack Exchange answer will be accepted or not.
+Here we built a LSTM classification model with Glovec embedding to predict whether a Stack Exchange answer will be accepted or not.
 
 
 To use the pre-trained model, make sure you have the the following files in the current directory:
