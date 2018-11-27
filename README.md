@@ -44,4 +44,4 @@ model 1: Recall=0.865 Selectivity=0.954 Accuracy=0.936.
 model 2: Recall=0.841 Selectivity=0.968 Accuracy=0.938.
 model 3: Recall=0.833 Selectivity=0.978 Accuracy=0.949.
 ```
-In addition, the same training process is also available in the jupyter notebook **LSTM**.
+In addition, the same training process is also available in the jupyter notebook **LSTM.ipynb**.
